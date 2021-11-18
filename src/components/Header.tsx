@@ -1,9 +1,15 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button';
+import SightingModal from './SightingModal';
 
 export default function Header() {
     return (
-        <h1 style={{marginTop: 50}}>
+        <div>
+            <h1 style={{marginTop: 50}}>
             Welcome To Mac Deer Sighting
-        </h1>
+            </h1> 
+            <SightingModal/>
+        </div>
+        
     )
 }

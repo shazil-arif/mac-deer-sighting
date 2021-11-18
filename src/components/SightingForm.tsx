@@ -3,25 +3,42 @@ import {Form, Button} from 'react-bootstrap';
 
 const SightingForm = () : ReactElement => {
     return (
-        <Form>
+        <Form style={{margin: 10}}>
+
+            {/* Date Spotted */}
             <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-                </Form.Text>
+                <Form.Label>Date Spotted</Form.Label>
+                <Form.Control type="date" placeholder="20/11/2021" />
             </Form.Group>
 
+            {/* Time Spotted */}
+              <Form.Group className="mb-3" controlId="formBasicEmail">
+                <Form.Label>Date Spotted</Form.Label>
+                <Form.Control type="time" placeholder="20/11/2021" />
+            </Form.Group>
+
+            {/* Animal type */}
             <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <Form.Label>Type of Animal</Form.Label>
+                <Form.Control type="password" placeholder="e.g Deer" />
             </Form.Group>
+
+            {/* Location */}
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
+                <Form.Label>Location Spotted</Form.Label>
+                <Form.Control type="password" placeholder="e.g JHE" />
             </Form.Group>
-            <Button variant="primary" type="submit">
+
+            {/* Optional Photo */}
+            <Form.Group className="mb-3" controlId="formBasicCheckbox">
+                <Form.Label>Upload Photo</Form.Label>
+                <Form.Control type="file" size="sm" />
+            </Form.Group>
+
+            <Button variant="danger" type="submit">
                 Submit
             </Button>
+
         </Form>
     );
 }

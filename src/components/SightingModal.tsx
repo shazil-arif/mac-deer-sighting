@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
-
+import SightingForm from './SightingForm';
 const SightingModal = () => {
     const [show, setShow] = useState<Boolean>(false);
   
@@ -22,14 +22,16 @@ const SightingModal = () => {
           <Modal.Header closeButton>
             <Modal.Title>Report a Deer Sighting</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+          
+          <SightingForm/>
+
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="danger" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            {/* <Button variant="primary" onClick={handleClose}>
               Save Changes
-            </Button>
+            </Button> */}
           </Modal.Footer>
         </Modal>
       </>

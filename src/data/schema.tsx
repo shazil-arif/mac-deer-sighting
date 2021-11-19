@@ -2,8 +2,7 @@ export type Data = {
     lat: number,
     lng: number,
     picture: string,
-    date: string,
-    time: string,
+    timestamp: Date,
     description: string
 };
 

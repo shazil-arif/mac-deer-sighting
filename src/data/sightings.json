@@ -4,8 +4,7 @@
         "lng": 5
     },
     "picture": "https://www.nwf.org/-/media/NEW-WEBSITE/Shared-Folder/Wildlife/Mammals/mammal_mule-deer-California_Richard-Douse_600x300.ashx",
-    "date": "JS Date",
-    "time": "JS Time Stamp",
+    "timeStamp": "JSTimeStamp",
     "description": "baby deer, seemed harmless, spotted near Childrens Hospital"
 },
 {
@@ -14,8 +13,7 @@
         "lng": 5
     },
     "picture": "https://i.cbc.ca/1.5802631.1605701660!/fileImage/httpImage/quebec-deer-cull-20201113.JPG",
-    "date": "JS Date",
-    "time": "JS Time Stamp",
+    "timeStamp": "JSTimeStamp",
     "description": "Looked like it could run you over, stay away from ABB Building."
 },
 {

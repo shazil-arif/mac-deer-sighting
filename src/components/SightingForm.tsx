@@ -1,11 +1,13 @@
 import React, { FormEventHandler, ReactElement, useState, SyntheticEvent } from 'react';
 import {Form, Button, DropdownButton, Dropdown} from 'react-bootstrap';
-import {animals} from '../data/schema';
+import {animals, Data} from '../data/schema';
+import sighting from '../data/sightings.json';
+import {writeNewEntry} from '../utils/db';
 
 const SightingForm = () : ReactElement => {
 
     const [selectedAnimal, setAnimal] = useState<string>(animals[0]);
-    const fields = ['date', 'time', 'location','picture'];
+    const fields = ['date', 'time', 'location','picture', 'description'];
 
 
     const validateFormData = (evt : any) : Boolean => {
@@ -25,7 +27,18 @@ const SightingForm = () : ReactElement => {
         }
 
         // continue
-        
+        const target = evt.target;
+        const sighting : Data = {
+            lat: 43.260995, // TODO, add geocoding from address
+            lng: -79.919250,
+            timestamp: new Date(target.date.value),
+            description: target.date.description,
+            picture: target.picture.value
+        };
+
+        writeNewEntry(sighting, (status : Boolean) => {
+            alert('Status:' + status);
+        });
     }
 
     return (
@@ -68,6 +81,13 @@ const SightingForm = () : ReactElement => {
             <Form.Group className="mb-3" controlId="location">
                 <Form.Label>Location Spotted</Form.Label>
                 <Form.Control required={true} type="text" placeholder="e.g JHE" />
+            </Form.Group>
+
+            
+            {/* Description */}
+            <Form.Group className="mb-3" controlId="description">
+                <Form.Label>Description/Notes</Form.Label>
+                <Form.Control required={true} type="text" placeholder="e.g Small sized Deer near sidewalk of JHE" />
             </Form.Group>
 
             {/* Optional Photo */}

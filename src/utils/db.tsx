@@ -1,11 +1,11 @@
-import { constants } from 'os';
 import {Data} from '../data/schema';
 
 const dbKey = 'deer-app';
 const localStorage = window.localStorage;
 
 export const getAllData = () : Array<Data> => {
-    return JSON.parse(localStorage.getItem(dbKey) || "");
+    let items = localStorage.getItem(dbKey);
+    return items == null ? [] : JSON.parse(items);
 }
 
 /**
@@ -20,6 +20,7 @@ export const writeNewEntry = (sighting: Data, cb : (status: Boolean) => void) =>
             localStorage.setItem(dbKey, JSON.stringify(arr));
         }
         else{
+            // important to set as [sighting], i.e array in this scenario
             localStorage.setItem(dbKey, JSON.stringify([sighting]));
         }
         return cb(true);

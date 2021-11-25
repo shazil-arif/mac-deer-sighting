@@ -25,14 +25,14 @@ export default function GMap() {
           defaultCenter={mcmaster}
           defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={({ map, maps }) => { console.log (map, maps.Geocoder /*TODO*/)}}
+          onGoogleApiLoaded={({ map, maps }) => { console.log (map, maps.Geocoder)}}
         > 
         {sightings.map((data: Data) => 
-            <Marker
-            lat={data.lat} lng={data.lng} text={data.description}  
-            />
+           /**
+            * The props lat, lng are required as GoogleMapReact wraps the Marker
+            */
+          <Marker lat={data.lat} lng={data.lng} key={data.timestamp} data={data}/>
         )}
-         
         </GoogleMapReact>
       </div>
     )

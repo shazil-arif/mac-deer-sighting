@@ -1,26 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {GeoAltFill} from 'react-bootstrap-icons';
 import {Data} from '../data/schema';
+import SightingDetailsModal from './SightingDetailsModal';
 
 type MarkerProps = {
     data: Data
+    lat: Number,
+    lng: Number
 };
 
-const Marker = (props : any) => {
-    /*
-     Render anything you like for the marker component
-    */
-   const handleClick = () => {
-       console.log(props);
-       alert('data: ' + props.data.description);
+const Marker = (props : MarkerProps) => {
+    const [showModal, setShow] = useState<Boolean>(false);
 
-   }
-
+    const handleClick = () => setShow((prev : Boolean) => !prev );
+    
     return (
-        <div style={{fontSize: 35, color: 'red'}} onClick={handleClick}>
-           <GeoAltFill></GeoAltFill>
+        <div>
+            <div onClick={handleClick}>
+            <GeoAltFill fontSize={35} color={'red'}/>
+            </div>
+            {showModal == true ? <SightingDetailsModal show={showModal} data={props.data}></SightingDetailsModal> : null}
         </div>
-     );
+    );
 }
 
 export default Marker;

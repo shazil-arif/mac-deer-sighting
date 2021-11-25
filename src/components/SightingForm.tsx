@@ -1,6 +1,6 @@
 import React, { FormEventHandler, ReactElement, useState, SyntheticEvent } from 'react';
 import {Form, Button, DropdownButton, Dropdown} from 'react-bootstrap';
-import {animals, Data} from '../data/schema';
+import {animals, Data, Animal} from '../data/schema';
 import sighting from '../data/sightings.json';
 import {writeNewEntry} from '../utils/db';
 
@@ -33,7 +33,8 @@ const SightingForm = () : ReactElement => {
             lng: -79.919250,
             timestamp: new Date(target.date.value),
             description: target.date.description,
-            picture: target.picture.value
+            picture: target.picture.value,
+            animal: Animal.Deer
         };
 
         writeNewEntry(sighting, (status : Boolean) => {

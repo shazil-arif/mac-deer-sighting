@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Modal} from 'react-bootstrap';
 import SightingForm from './SightingForm';
+
 const SightingModal = () => {
     const [show, setShow] = useState<Boolean>(false);
   

@@ -9,7 +9,6 @@ export default function GMap() {
   
     const mcmaster = {lat:43.260995,lng:-79.919250};
     const zoom = 17;
-    const key = {key: 'AIzaSyDaRNhgwE9rdEd8flqgUW9JiBWQ0M3F7XQ'}
     const style = {
       marginLeft: '10%',
       marginRight: '10%',
@@ -23,7 +22,7 @@ export default function GMap() {
     return (
         <div>
           <GoogleMapReact
-          bootstrapURLKeys={key}
+          // bootstrapURLKeys={key}
           onClick={(evt : any) => {
             const lat = evt.lat;
             const lng = evt.lng;

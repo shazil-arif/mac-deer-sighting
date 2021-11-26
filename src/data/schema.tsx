@@ -2,17 +2,10 @@ export type Data = {
     lat: number,
     lng: number,
     picture: string,
-    animal: Animal,
+    animal: string,
     timestamp: Date,
     description: string
 };
-
-export enum Animal {
-    Deer,
-    Rat,
-    Skunk,
-    Bear
-}
 
 export const animals = [
     'Deer',

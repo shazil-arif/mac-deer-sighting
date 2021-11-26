@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 import {getAllData} from '../utils/db';
 import {Data} from '../data/schema';
+import Store from './Store';
 
 export default function GMap() {
   
@@ -23,6 +24,13 @@ export default function GMap() {
         <div>
           <GoogleMapReact
           bootstrapURLKeys={key}
+          onClick={(evt : any) => {
+            const lat = evt.lat;
+            const lng = evt.lng;
+            Store.setLat(lat);
+            Store.setLng(lng);
+            Store.notify();
+          }}
           style={style}
           resetBoundsOnResize={true}
           defaultCenter={mcmaster}

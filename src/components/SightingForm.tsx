@@ -1,10 +1,10 @@
 import React, { FormEventHandler, ReactElement, useState, SyntheticEvent } from 'react';
 import {Form, Button, DropdownButton, Dropdown} from 'react-bootstrap';
-import {animals, Data, Animal} from '../data/schema';
+import {animals, Data} from '../data/schema';
 import sighting from '../data/sightings.json';
 import {writeNewEntry} from '../utils/db';
 
-const SightingForm = () : ReactElement => {
+const SightingForm = (props: {display: string}) : ReactElement => {
 
     const [selectedAnimal, setAnimal] = useState<string>(animals[0]);
     const fields = ['date', 'time', 'location','picture', 'description'];
@@ -32,9 +32,9 @@ const SightingForm = () : ReactElement => {
             lat: 43.260995, // TODO, add geocoding from address
             lng: -79.919250,
             timestamp: new Date(target.date.value),
-            description: target.date.description,
+            description: target.description.value,
             picture: target.picture.value,
-            animal: Animal.Deer
+            animal: selectedAnimal
         };
 
         writeNewEntry(sighting, (status : Boolean) => {
@@ -43,7 +43,7 @@ const SightingForm = () : ReactElement => {
     }
 
     return (
-        <form style={{margin: 10}} onSubmit={handleSubmit}>
+        <form style={{margin: 10, display: props.display}} onSubmit={handleSubmit}>
 
             {/* Date Spotted */}
             <Form.Group role="form" className="mb-3" controlId='date'>

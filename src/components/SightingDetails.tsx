@@ -1,6 +1,6 @@
 import React from 'react';
 import { Data } from '../data/schema';
-import {Form, Button} from 'react-bootstrap';
+import Text from './Text';
 
 type Props = {
     data: Data
@@ -8,16 +8,25 @@ type Props = {
 
 const SightingDetails = (props: Props) => {
     const data : Data = props.data;
-    console.log(data.timestamp);
-    const time = data.timestamp;
+
+    const entries = [
+        {label: "Spotted on: ", text: data.timestamp.toString(), lineBreak: true},
+        {label: "Animal type: ", text: data.animal},
+        {label: "Location (lat, lng): ", text: `(${data.lat},${data.lng})`},
+        {label: "Description: ", text: data.description}
+    ]
 
     return (
         <form style={{margin: 10}}>
-            <Form.Label>Date Spotted: {data.timestamp}</Form.Label>
-            <Form.Label>Time Spotted: {time}</Form.Label>
-            <Form.Label>Animal Type: {data.animal}</Form.Label>
-            <Form.Label>Location: ({data.lat}),({data.lng})</Form.Label>
-            <Form.Label>Description: {data.description}</Form.Label>
+            {entries.map(
+                ({label, text, lineBreak}) => 
+                <Text 
+                key={label}
+                label={label} 
+                lineBreak={lineBreak} 
+                text={text}
+                />
+            )}
         </form>
     );
 }

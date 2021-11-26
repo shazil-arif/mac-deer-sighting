@@ -5,7 +5,15 @@ const localStorage = window.localStorage;
 
 export const getAllData = () : Array<Data> => {
     let items = localStorage.getItem(dbKey);
-    return items == null ? [] : JSON.parse(items);
+    if (items == null) return [];
+
+    const arr = JSON.parse(items) || [];
+
+    for (let entry of arr){
+        const timestamp = entry.timestamp;
+        entry.timestamp = new Date(timestamp);
+    }
+    return arr;
 }
 
 /**

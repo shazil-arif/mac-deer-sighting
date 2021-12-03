@@ -17,9 +17,9 @@ export const getAllData = () : Array<Data> => {
 }
 
 /**
- * Invoke cb with true or false depending on whether write was succesful
+ * Return true or false depending on whether write was succesful
  */
-export const writeNewEntry = (sighting: Data, cb : (status: Boolean) => void) => {
+export const writeNewEntry = (sighting: Data) : Boolean => {
     try{
         const currentData = localStorage.getItem(dbKey);
         if (currentData != null){
@@ -31,9 +31,9 @@ export const writeNewEntry = (sighting: Data, cb : (status: Boolean) => void) =>
             // important to set as [sighting], i.e array in this scenario
             localStorage.setItem(dbKey, JSON.stringify([sighting]));
         }
-        return cb(true);
+        return true;
     }
     catch(ex){
-        return cb(false);
+        return false;
     }  
 }

@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState} from 'react';
 import {Button, Modal, Form, DropdownButton, Dropdown} from 'react-bootstrap';
-import SightingForm from './SightingForm';
 import {handleSubmit} from '../utils/form';
 import {animals, Data} from '../data/schema';
 import Store from './Store';
+import {CheckCircle, XCircleFill} from 'react-bootstrap-icons';
 
 type SightingModalProps = {
   show: Boolean,
@@ -11,8 +11,15 @@ type SightingModalProps = {
   display: string
 }
 
+enum Status{
+  SUCCESS,
+  FAIL,
+  HIDDEN
+}
+
 const SightingModal = (props: SightingModalProps) => {
     const [selectedAnimal, setAnimal] = useState<string>(animals[0]);
+    const [status, setStatus] = useState<Status>(Status.HIDDEN);
     const [formState, setFormState] = useState<Data>({
       lat: 43.260995,
       lng: -79.919250,
@@ -21,32 +28,69 @@ const SightingModal = (props: SightingModalProps) => {
       picture: "",
       animal: selectedAnimal
     });
-    const [formRef] = useState<React.RefObject<HTMLFormElement>>(React.createRef<HTMLFormElement>());
 
     const handleFormStateChange = (e : any) => {
       const target = e.target;
       const field = target.name;
-      setFormState((prevFormState: Data) => ({...prevFormState, [field]: field === 'timestamp' ? new Date(target.value) : target.value}));
+      setFormState((prevFormState: Data) => {
+        let value = target.value
+        if (field === 'timestamp'){
+          value = new Date(target.value);
+        }
+        const newState = {...prevFormState, [field]: value};
+        return newState;
+      });
     }
 
     const handleMapSelection = () => {
-      props.onChange();
+      props.onChange();      
+      // this happens on each click, ideally should happen once, maybe place in a useEffect
       Store.subscribe((lat: number, lng: number) => {
         props.onChange();
         setFormState((prevFormState : Data) => ({...prevFormState, lat, lng}))
-      })
+      });
+    }
 
+    const onSubmit = (evt: React.BaseSyntheticEvent) => {
+      const status : Boolean = handleSubmit(formState, evt);
+      if (status == true){
+        // show success icon
+        setStatus(Status.SUCCESS);
+        setTimeout(() => window.location.reload(), 2000)
+      }
+      else{
+        // show failed icon
+        setStatus(Status.FAIL);
+      }
+    }
+
+    const renderIcon = () => {
+      if (status === Status.HIDDEN){
+        return null;
+      }
+      else if (status === Status.SUCCESS){
+        return (
+          <div>
+              <CheckCircle color='green' fontSize={50} style={{margin: '10px'}}/>
+              <p style={{margin: 10}}><strong>Successfully saved. Refreshing the page..</strong></p>
+          </div>
+        ); 
+      }
+      return ( 
+        <div>
+          <XCircleFill color='red' fontSize={50} style={{margin: '10px'}}/>
+          <p style={{margin: 10}}><strong>Failed to save..Please try again</strong></p>
+        </div>
+      );
     }
 
     return (
-        <Modal show={props.show} onHide={() => {
-          props.onChange();
-        }}>
+        <Modal show={props.show} onHide={props.onChange}>
           <Modal.Header closeButton>
             <Modal.Title>Report a Deer Sighting</Modal.Title>
           </Modal.Header>
           
-          <form ref={formRef} style={{margin: 10, display: props.display}} onSubmit={handleSubmit(selectedAnimal)}>
+          <form style={{margin: 10, display: props.display}} onSubmit={onSubmit}>
 
                 {/* Date Spotted */}
                 <Form.Group className="mb-3" controlId='date'>
@@ -65,7 +109,13 @@ const SightingModal = (props: SightingModalProps) => {
                 {/* Time Spotted */}
                   <Form.Group className="mb-3" controlId="time">
                     <Form.Label>Time Spotted</Form.Label>
-                    <Form.Control required={true} type="time" placeholder="20/11/2021" />
+                    <Form.Control 
+                    required={true} 
+                    type="time" 
+                    placeholder="20/11/2021" 
+                    // value={formState.timestamp.toISOString().split("T")[1].split(".")[0]}
+                    // onChange={(e : any) => handleFormStateChange(e)} 
+                    />
                 </Form.Group>
 
                 {/* Animal type */}
@@ -127,6 +177,7 @@ const SightingModal = (props: SightingModalProps) => {
                     Submit
                 </Button>
             </form>
+            {renderIcon()}
         </Modal>
     );
   }

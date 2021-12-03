@@ -26,9 +26,7 @@ export default function GMap() {
           onClick={(evt : any) => {
             const lat = evt.lat;
             const lng = evt.lng;
-            Store.setLat(lat);
-            Store.setLng(lng);
-            Store.notify();
+            Store.set(lat, lng);
           }}
           style={style}
           resetBoundsOnResize={true}

@@ -1,23 +1,29 @@
 /**
  * Almost like an event Emitter
  */
+type CallbackWithLatLngParams = (lat: number, lng: number) => void;
+const emptyFunction = () => {};
+
 class Store{
     lat: number = 0;
     lng: number = 0;
-    cbs: Array<Function> = [];
+    cb: CallbackWithLatLngParams = emptyFunction;
  
-    setLat(lat: number){
+    set(lat: number, lng: number){
         this.lat = lat;
-    }
-    setLng(lng: number){
         this.lng = lng;
-    }
-    subscribe(cb : (lat: number, lng: number) => void){
-        this.cbs.push(cb);
+        if (this.cb !== emptyFunction){
+            this.__notify();
+        }
     }
 
-    notify(){
-        this.cbs[0](this.lat, this.lng);
+    subscribe(cb : (lat: number, lng: number) => void){
+        this.cb = cb;
+    }
+
+    __notify(){
+        this.cb(this.lat, this.lng);
+        this.cb = emptyFunction;
     }
 }
 

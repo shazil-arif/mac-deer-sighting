@@ -19,7 +19,7 @@ export default function Header() {
 
     return (
         <div>
-            <h1 style={{marginTop: 50, marginBottom: 0, fontSize: 37.5}}>Welcome To Mac Deer Sighting</h1> 
+            <h1 style={{marginTop: 50, marginBottom: 0, fontSize: 37.5}}>Welcome To MacWild</h1> 
             <Button 
                 style={{margin: 5, height: 40}} 
                 variant="danger"

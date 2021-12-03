@@ -53,7 +53,7 @@ const SightingModal = (props: SightingModalProps) => {
 
     const onSubmit = (evt: React.BaseSyntheticEvent) => {
       const status : Boolean = handleSubmit(formState, evt);
-      if (status == true){
+      if (status === true){
         // show success icon
         setStatus(Status.SUCCESS);
         setTimeout(() => window.location.reload(), 2000)

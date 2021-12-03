@@ -11,7 +11,7 @@ function Text({text, label, lineBreak}: TextComponentProps){
     return (
         <div style={{fontSize: 20}}>
             <Form.Label>{label}</Form.Label>
-            {lineBreak != null && lineBreak == true ? <br/> : null}
+            {lineBreak != null && lineBreak === true ? <br/> : null}
             <strong>{text}</strong>
         </div>
     )

@@ -19,7 +19,7 @@ const Marker = (props : MarkerProps) => {
             <div onClick={handleClick}>
             <GeoAltFill fontSize={35} color={'red'}/>
             </div>
-            {showModal == true ? <SightingDetailsModal show={showModal} data={props.data}></SightingDetailsModal> : null}
+            {showModal === true ? <SightingDetailsModal show={showModal} data={props.data}></SightingDetailsModal> : null}
         </div>
     );
 }

@@ -16,7 +16,7 @@ export default function GMap() {
       marginLeft: '10%',
       marginRight: '10%',
       width: '80%', 
-      height: '100vh'
+      height: 'calc(100vh - 145px)'
     };
 
     // lazy initialization of state, will only be set on first render

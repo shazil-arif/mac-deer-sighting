@@ -5,6 +5,9 @@ import {getAllData} from '../utils/db';
 import {Data} from '../data/schema';
 import Store from './Store';
 
+const { REACT_APP_GOOGLE_MAPS_KEY } = process.env;
+const key = {key: `${REACT_APP_GOOGLE_MAPS_KEY}`}
+
 export default function GMap() {
   
     const mcmaster = {lat:43.260995,lng:-79.919250};
@@ -22,7 +25,7 @@ export default function GMap() {
     return (
         <div>
           <GoogleMapReact
-          // bootstrapURLKeys={key}
+          bootstrapURLKeys={key}
           onClick={(evt : any) => {
             const lat = evt.lat;
             const lng = evt.lng;
